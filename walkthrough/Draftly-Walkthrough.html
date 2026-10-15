@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Draftly — Product Walkthrough</title>
+  <style>
+    :root {
+      --bg: #1c1917;
+      --panel: #292524;
+      --fg: #fafaf9;
+      --muted: #a8a29e;
+      --accent: #0f766e;
+      --border: #44403c;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Segoe UI", system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--fg);
+      min-height: 100vh;
+    }
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 1rem 1.5rem;
+      border-bottom: 1px solid var(--border);
+      background: #0c0a09;
+    }
+    header h1 { margin: 0; font-size: 1.25rem; letter-spacing: -0.02em; }
+    header p { margin: 0.15rem 0 0; color: var(--muted); font-size: 0.85rem; }
+    .controls { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+    button {
+      background: var(--accent);
+      color: white;
+      border: 0;
+      border-radius: 6px;
+      padding: 0.55rem 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    button.secondary { background: transparent; border: 1px solid var(--border); color: var(--fg); }
+    button:disabled { opacity: 0.45; cursor: not-allowed; }
+    main {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 1.25rem 1.5rem 2.5rem;
+    }
+    .meta {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 0.75rem;
+      margin-bottom: 1.25rem;
+    }
+    .meta div {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 0.75rem 0.9rem;
+    }
+    .meta strong { display: block; font-size: 0.75rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.04em; }
+    .meta span { font-size: 0.95rem; }
+    .slide {
+      display: none;
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    .slide.active { display: block; }
+    .slide img {
+      width: 100%;
+      display: block;
+      background: #111;
+      max-height: 62vh;
+      object-fit: contain;
+    }
+    .caption { padding: 1.1rem 1.25rem 1.35rem; }
+    .caption .step {
+      color: var(--accent);
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+    .caption h2 { margin: 0.35rem 0 0.5rem; font-size: 1.35rem; }
+    .caption p { margin: 0; color: #e7e5e4; line-height: 1.55; }
+    .progress {
+      margin-top: 1rem;
+      height: 6px;
+      background: #44403c;
+      border-radius: 999px;
+      overflow: hidden;
+    }
+    .progress > span {
+      display: block;
+      height: 100%;
+      background: var(--accent);
+      width: 0%;
+      transition: width 0.25s ease;
+    }
+    .dots {
+      display: flex;
+      gap: 0.4rem;
+      justify-content: center;
+      margin-top: 1rem;
+      flex-wrap: wrap;
+    }
+    .dots button {
+      width: 10px;
+      height: 10px;
+      padding: 0;
+      border-radius: 999px;
+      background: #57534e;
+    }
+    .dots button.active { background: var(--accent); }
+    footer {
+      margin-top: 1.5rem;
+      color: var(--muted);
+      font-size: 0.85rem;
+      line-height: 1.5;
+    }
+    code { background: #0c0a09; padding: 0.1rem 0.35rem; border-radius: 4px; }
+  </style>
+</head>
+<body>
+  <header>
+    <div>
+      <h1>Draftly Walkthrough</h1>
+      <p>Live app demo captured from production — create, edit, share, permissions</p>
+    </div>
+    <div class="controls">
+      <button class="secondary" id="prevBtn" type="button">Previous</button>
+      <button id="playBtn" type="button">Play</button>
+      <button class="secondary" id="nextBtn" type="button">Next</button>
+    </div>
+  </header>
+
+  <main>
+    <div class="meta">
+      <div><strong>Live URL</strong><span>https://ajaiotest-vglk.vercel.app/</span></div>
+      <div><strong>Demo owner</strong><span>alice@draftly.demo</span></div>
+      <div><strong>Editor</strong><span>bob@draftly.demo</span></div>
+      <div><strong>Viewer</strong><span>carol@draftly.demo</span></div>
+      <div><strong>Password</strong><span>DemoPass123!</span></div>
+    </div>
+
+    <section class="slide active" data-step="1">
+      <img src="00-login.png" alt="Draftly login with demo accounts" />
+      <div class="caption">
+        <div class="step">Step 1 · Authentication</div>
+        <h2>Sign in with a real seeded account</h2>
+        <p>Demo switching uses Supabase Auth email/password — not a client-side impersonation dropdown. Alice is the document owner for this walkthrough.</p>
+      </div>
+    </section>
+
+    <section class="slide" data-step="2">
+      <img src="01-documents-workspace.png" alt="My Documents workspace" />
+      <div class="caption">
+        <div class="step">Step 2 · Workspace</div>
+        <h2>My Documents workspace</h2>
+        <p>Sidebar navigation for My Documents and Shared with Me, search, Import File, and New Document. Empty/list states are handled in the UI.</p>
+      </div>
+    </section>
+
+    <section class="slide" data-step="3">
+      <img src="02-editor-editing-saved.png" alt="Editor with autosave saved state" />
+      <div class="caption">
+        <div class="step">Step 3 · Editor + autosave</div>
+        <h2>Create, rename title, edit rich text</h2>
+        <p>Created <strong>Q2 Product Strategy</strong>, typed content with heading formatting, and confirmed the visible <strong>Saved</strong> status after debounced autosave. Content is stored as Tiptap JSON.</p>
+      </div>
+    </section>
+
+    <section class="slide" data-step="4">
+      <img src="03-share-dialog.png" alt="Share dialog" />
+      <div class="caption">
+        <div class="step">Step 4 · Sharing</div>
+        <h2>Share by email with role selection</h2>
+        <p>Owner-only Share dialog: choose Viewer or Editor, share with a registered user email, and review people with access. Non-owners cannot manage sharing.</p>
+      </div>
+    </section>
+
+    <section class="slide" data-step="5">
+      <img src="04-shared-with-bob-carol.png" alt="Collaborators listed after sharing" />
+      <div class="caption">
+        <div class="step">Step 5 · Collaborators</div>
+        <h2>Bob = Editor, Carol = Viewer</h2>
+        <p>Shared with <code>bob@draftly.demo</code> as editor and <code>carol@draftly.demo</code> as viewer. Access can be revoked immediately from this dialog.</p>
+      </div>
+    </section>
+
+    <section class="slide" data-step="6">
+      <img src="05-carol-shared-with-me.png" alt="Carol Shared with Me list" />
+      <div class="caption">
+        <div class="step">Step 6 · Shared with Me</div>
+        <h2>Recipient workspace shows the shared document</h2>
+        <p>Signed in as Carol. The document appears under Shared with Me with owner name and <strong>viewer</strong> permission label.</p>
+      </div>
+    </section>
+
+    <section class="slide" data-step="7">
+      <img src="06-carol-viewer-readonly.png" alt="Carol view-only editor" />
+      <div class="caption">
+        <div class="step">Step 7 · Permission enforcement</div>
+        <h2>Viewer is read-only (UI + server)</h2>
+        <p>As Carol, title is disabled, formatting toolbar is disabled, Share is hidden, and content is view-only. Unauthorized writes are rejected server-side as well.</p>
+      </div>
+    </section>
+
+    <div class="progress"><span id="bar"></span></div>
+    <div class="dots" id="dots"></div>
+
+    <footer>
+      <p><strong>Also included in this folder:</strong> <code>sample-import.md</code> and <code>sample-import.txt</code> for demonstrating Import File on the live site.</p>
+      <p><strong>For submission:</strong> open this HTML (or record a quick screen capture of Play mode), upload the video to YouTube/Drive, then put the public URL in <code>WALKTHROUGH_URL.txt</code>.</p>
+      <p>Keyboard: ← → to navigate, Space to play/pause.</p>
+    </footer>
+  </main>
+
+  <script>
+    const slides = [...document.querySelectorAll(".slide")];
+    const bar = document.getElementById("bar");
+    const dots = document.getElementById("dots");
+    const prevBtn = document.getElementById("prevBtn");
+    const nextBtn = document.getElementById("nextBtn");
+    const playBtn = document.getElementById("playBtn");
+    let index = 0;
+    let timer = null;
+
+    slides.forEach((_, i) => {
+      const b = document.createElement("button");
+      b.type = "button";
+      b.setAttribute("aria-label", "Go to step " + (i + 1));
+      b.addEventListener("click", () => go(i));
+      dots.appendChild(b);
+    });
+
+    function go(i) {
+      index = (i + slides.length) % slides.length;
+      slides.forEach((s, n) => s.classList.toggle("active", n === index));
+      [...dots.children].forEach((d, n) => d.classList.toggle("active", n === index));
+      bar.style.width = ((index + 1) / slides.length * 100) + "%";
+      prevBtn.disabled = false;
+      nextBtn.disabled = false;
+    }
+
+    function play() {
+      if (timer) {
+        clearInterval(timer);
+        timer = null;
+        playBtn.textContent = "Play";
+        return;
+      }
+      playBtn.textContent = "Pause";
+      timer = setInterval(() => {
+        if (index >= slides.length - 1) {
+          play();
+          return;
+        }
+        go(index + 1);
+      }, 3500);
+    }
+
+    prevBtn.addEventListener("click", () => go(index - 1));
+    nextBtn.addEventListener("click", () => go(index + 1));
+    playBtn.addEventListener("click", play);
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "ArrowRight") go(index + 1);
+      if (e.key === "ArrowLeft") go(index - 1);
+      if (e.key === " ") { e.preventDefault(); play(); }
+    });
+
+    go(0);
+  </script>
+</body>
+</html>

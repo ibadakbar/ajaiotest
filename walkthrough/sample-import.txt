@@ -1,0 +1,4 @@
+Draftly import smoke test
+
+This plain text file becomes a new editable document.
+Line breaks are preserved as paragraphs.
