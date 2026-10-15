@@ -8,6 +8,10 @@
 
 https://ajaiotest-vglk.vercel.app/
 
+## Walkthrough URL
+
+https://drive.google.com/drive/folders/1CWQFoTpNSQnE5nGdAb1VBiaSOW3gz51h?usp=sharing
+
 ## Source code location
 
 - Local: `D:\testpracticeajaio`
@@ -44,7 +48,6 @@ Suggested demo: sign in as Alice, create a document, share with Bob as editor an
 
 ## Incomplete features
 
-- Walkthrough video URL (placeholder in `WALKTHROUGH_URL.txt` — add after recording)
 - Real-time collaboration, trash, DOCX import (intentionally out of scope)
 
 ## Automated tests and actual results
@@ -66,5 +69,5 @@ See README “Known limitations”. Multi-user persistence requires a configured
 
 1. Playwright happy-path covering create → share → viewer denied edit
 2. Soft-delete Trash with RLS
-3. Deploy to Vercel and verify the live URL
-4. Record and link the walkthrough video
+3. Add a short Loom/YouTube screen recording of the live app (optional polish beyond the Drive walkthrough package)
+4. Playwright E2E for create → share → viewer denied edit
