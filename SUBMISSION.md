@@ -2,72 +2,81 @@
 
 ## Product name and summary
 
-**Draftly** is a lightweight collaborative document editor. Users create and edit rich-text documents, import text/Markdown files, and share documents with registered users as viewers or editors. Authorization is enforced with Supabase Auth sessions and Postgres RLS.
+**Draftly** is a lightweight collaborative document editor inspired by Google Docs. It supports document creation/editing with rich text, `.txt`/`.md` import, ownership, viewer/editor sharing, and Postgres persistence via Supabase.
 
-## Live URL
+## Live product URL
 
 https://ajaiotest-vglk.vercel.app/
 
-## Walkthrough URL
+## Source code
 
+https://github.com/ibadakbar/ajaiotest
+
+## Walkthrough video URL
+
+https://drive.google.com/file/d/1Bk0dfXibLZ2nOwq2gsXpSDrxZ4I4aRKz/view?usp=sharing
+
+Drive folder (screenshots + HTML package):  
 https://drive.google.com/drive/folders/1CWQFoTpNSQnE5nGdAb1VBiaSOW3gz51h?usp=sharing
 
-## Source code location
 
-- Local: `D:\testpracticeajaio`
-- GitHub: https://github.com/ibadakbar/ajaiotest
+## Demo credentials (required for sharing review)
 
-## Setup instructions
+| Email | Password | Role in demo |
+| --- | --- | --- |
+| `alice@draftly.demo` | `DemoPass123!` | Owner |
+| `bob@draftly.demo` | `DemoPass123!` | Editor collaborator |
+| `carol@draftly.demo` | `DemoPass123!` | Viewer collaborator |
+
+Suggested review path: sign in as Alice → create/edit → Share with Bob (editor) and Carol (viewer) → sign in as Bob/Carol and verify permissions.
+
+## Local setup
 
 1. `npm install`
-2. Copy `.env.example` → `.env.local` and add Supabase URL + anon key (+ service role for seeding).
-3. Run [`supabase/migrations/001_init.sql`](supabase/migrations/001_init.sql) in the Supabase SQL editor.
+2. Copy `.env.example` → `.env.local` and add Supabase URL + anon key (+ service role for seeding)
+3. Run `supabase/migrations/001_init.sql` in the Supabase SQL editor
 4. `npm run seed`
-5. `npm run dev`
-6. Sign in at `/login` with a demo account.
+5. `npm run dev` → http://localhost:3000
 
-## Demo credentials
+## What is included
 
-| Email | Password |
-| --- | --- |
-| `alice@draftly.demo` | `DemoPass123!` |
-| `bob@draftly.demo` | `DemoPass123!` |
-| `carol@draftly.demo` | `DemoPass123!` |
+- README.md — setup and run instructions
+- ARCHITECTURE.md — architecture, schema, tradeoffs, deprioritized work
+- AI_WORKFLOW.md — AI tools used, accepted/rejected suggestions, verification
+- SUBMISSION.md — this file
+- WALKTHROUGH_URL.txt — walkthrough link(s)
+- Source code on GitHub + live Vercel deployment
+- Automated tests (Vitest)
 
-Suggested demo: sign in as Alice, create a document, share with Bob as editor and Carol as viewer, then sign out and verify permissions as Bob/Carol.
+## What is working
 
-## Implemented features
+- Create, rename, edit, autosave, reopen documents (Tiptap JSON persistence)
+- Rich text: bold, italic, underline, headings, bullets, numbers, undo/redo
+- Import `.txt` and `.md` into a new editable document
+- Sharing by email with viewer/editor roles + revoke
+- Owned vs Shared with Me views
+- Server-verified Supabase Auth + RLS authorization
+- Validation/error/empty/loading/save-failed states
+- Deployed app on Vercel
 
-- Auth (email/password) with middleware-protected routes
-- My Documents / Shared with Me workspace, search, create, rename
-- Tiptap editor with formatting toolbar and JSON autosave
-- Share / revoke with viewer and editor roles
-- `.txt` / `.md` import with validation
-- Unit tests for permissions, import, and autosave guards
-- Assessment documentation set
+## What is incomplete / intentionally deprioritized
 
-## Incomplete features
+- Real-time multiplayer cursors / CRDT sync
+- Trash / soft-delete
+- DOCX import
+- Comments, version history, PDF export
 
-- Real-time collaboration, trash, DOCX import (intentionally out of scope)
-
-## Automated tests and actual results
-
-Commands run in this session:
+## Automated test results
 
 ```text
 npm run typecheck  → passed
 npm run lint       → passed
-npm run test       → 3 files, 19 tests passed
-npm run build      → passed (Next.js 15.5.28 production build)
+npm run test       → 19 tests passed
+npm run build      → passed
 ```
 
-## Known limitations
+## Next with another 2–4 hours
 
-See README “Known limitations”. Multi-user persistence requires a configured Supabase project.
-
-## Next improvements (2–4 more hours)
-
-1. Playwright happy-path covering create → share → viewer denied edit
-2. Soft-delete Trash with RLS
-3. Add a short Loom/YouTube screen recording of the live app (optional polish beyond the Drive walkthrough package)
-4. Playwright E2E for create → share → viewer denied edit
+1. Record/polish a 3–5 minute Loom/YouTube walkthrough if not already uploaded
+2. Playwright E2E: create → share → viewer cannot edit
+3. Soft-delete Trash with RLS
