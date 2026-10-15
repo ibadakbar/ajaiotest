@@ -1,0 +1,42 @@
+FINISH SUBMISSION IN 15–20 MINUTES
+=================================
+
+BLOCKER (required by portal):
+The portal "Video Submission Link" field requires a 3–5 minute VIDEO
+(YouTube / Loom / Drive video). Your Drive folder currently has screenshots + HTML,
+which is helpful, but NOT enough for that field.
+
+STEP A — Record the video (do this now)
+1. Open https://ajaiotest-vglk.vercel.app/
+2. Press Win+G (Xbox Game Bar) or Win+Shift+R and start screen recording
+   OR use Loom free: https://www.loom.com/
+3. Record 3–5 minutes while you:
+   - Login as alice@draftly.demo / DemoPass123!
+   - Create a document, edit (bold/heading), show Saved
+   - Refresh and reopen
+   - Import sample-import.md (from Desktop\Draftly-Walkthrough)
+   - Share with bob@draftly.demo as Editor and carol@draftly.demo as Viewer
+   - Sign in as Carol → show Shared with Me + View only
+   - Say what you deprioritized (no realtime, no trash, no DOCX)
+   - Say you used Cursor AI and verified with tests + live deploy
+4. Upload to YouTube (Unlisted) or Loom or Google Drive as a VIDEO file
+5. Copy the public link
+
+STEP B — Paste into the portal
+1. Video Submission Link = your video URL from Step A
+2. Submission (Markdown) = copy everything from PORTAL_SUBMISSION.md
+   (replace PASTE_YOUR_VIDEO_LINK_HERE with the video URL)
+
+STEP C — Update Drive folder (recommended)
+Upload into the SAME Drive folder:
+- draftly-source.zip (create below) OR link GitHub in SUBMISSION
+- README.md, ARCHITECTURE.md, AI_WORKFLOW.md, SUBMISSION.md, WALKTHROUGH_URL.txt
+- Your walkthrough VIDEO file
+
+STEP D — Update WALKTHROUGH_URL.txt then push
+Put ONLY the video URL in WALKTHROUGH_URL.txt, then:
+  git add WALKTHROUGH_URL.txt SUBMISSION.md PORTAL_SUBMISSION.md
+  git commit -m "Finalize submission with walkthrough video URL"
+  git push origin main
+
+STEP E — Click Submit Assignment
