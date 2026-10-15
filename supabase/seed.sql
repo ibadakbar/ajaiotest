@@ -1,0 +1,23 @@
+-- Demo accounts for assessment.
+-- Create these users in Supabase Auth (Dashboard → Authentication → Users)
+-- or via the Auth Admin API / signup flow, then ensure profiles exist.
+--
+-- Recommended credentials (create manually in Auth dashboard):
+--   alice@draftly.demo / DemoPass123!
+--   bob@draftly.demo   / DemoPass123!
+--   carol@draftly.demo / DemoPass123!
+--
+-- After creating auth users, run the profile upserts below
+-- (replace UUIDs with the real auth.users ids), or rely on the
+-- handle_new_user trigger if you set raw_user_meta_data.display_name.
+
+-- Example (run after users exist):
+--
+-- insert into public.profiles (id, display_name, email)
+-- values
+--   ('00000000-0000-0000-0000-000000000001', 'Alice Owner', 'alice@draftly.demo'),
+--   ('00000000-0000-0000-0000-000000000002', 'Bob Editor', 'bob@draftly.demo'),
+--   ('00000000-0000-0000-0000-000000000003', 'Carol Viewer', 'carol@draftly.demo')
+-- on conflict (id) do update
+--   set display_name = excluded.display_name,
+--       email = excluded.email;

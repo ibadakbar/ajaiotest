@@ -1,0 +1,4 @@
+Walkthrough URL: REPLACE_AFTER_RECORDING
+
+Record a short demo (create → edit → refresh → share → viewer/editor permissions → import), upload it, then replace this file’s contents with the public URL only.
+Do not invent a video URL.
