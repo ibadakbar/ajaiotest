@@ -1,36 +1,104 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Draftly
 
-## Getting Started
+A lightweight collaborative document editor — a practical Google Docs alternative built for the Ajaia LLC Full Stack Product Engineer assessment.
 
-First, run the development server:
+## Implemented features
+
+- Workspace with sidebar navigation: **My Documents** and **Shared with Me**
+- Document search by title
+- Create, rename, open, edit, and reopen documents
+- Tiptap rich-text editor (bold, italic, underline, headings, lists, undo/redo)
+- Structured JSON content persistence with debounced autosave
+- Visible save states: Saving / Saved / Save failed (with retry)
+- Import `.txt` and `.md` files into editable documents
+- Sharing by email with **viewer** and **editor** roles, plus revoke
+- Server-verified Supabase Auth sessions and Postgres Row Level Security
+- Seeded demo accounts for assessment switching (real sign-in, not client impersonation)
+
+## Technology stack
+
+- Next.js 15 (App Router) + TypeScript
+- Tailwind CSS
+- Tiptap
+- Supabase Auth + Postgres + RLS
+- Vitest
+
+## Prerequisites
+
+- Node.js 20+
+- npm
+- A Supabase project
+
+## Environment variables
+
+Copy `.env.example` to `.env.local` and fill in values from Supabase → Settings → API:
+
+```bash
+NEXT_PUBLIC_SUPABASE_URL=https://your-project.supabase.co
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
+SUPABASE_SERVICE_ROLE_KEY=your-service-role-key
+```
+
+Never commit `.env.local` or expose the service role key to the browser.
+
+## Local installation
+
+```bash
+npm install
+cp .env.example .env.local
+# edit .env.local with your Supabase credentials
+```
+
+## Database setup and migrations
+
+1. Open the Supabase SQL editor (or use the Supabase CLI).
+2. Run [`supabase/migrations/001_init.sql`](supabase/migrations/001_init.sql) in full.
+   This creates `profiles`, `documents`, `document_shares`, indexes, triggers, and RLS policies.
+3. Seed demo users:
+
+```bash
+npm run seed
+```
+
+This creates:
+
+| Email | Password | Suggested role in demos |
+| --- | --- | --- |
+| `alice@draftly.demo` | `DemoPass123!` | Owner |
+| `bob@draftly.demo` | `DemoPass123!` | Editor collaborator |
+| `carol@draftly.demo` | `DemoPass123!` | Viewer collaborator |
+
+## Run locally
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) and sign in with a demo account.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Checks
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run typecheck
+npm run lint
+npm run test
+npm run build
+```
 
-## Learn More
+## Deployment (Vercel)
 
-To learn more about Next.js, take a look at the following resources:
+1. Push the repository to GitHub/GitLab/Bitbucket.
+2. Import the project in Vercel.
+3. Set the same environment variables as `.env.example` (including `NEXT_PUBLIC_*` and optionally `SUPABASE_SERVICE_ROLE_KEY` only if you need seed scripts in CI — prefer keeping the service role out of the web app runtime).
+4. Apply the SQL migration to your production Supabase project and run the seed script against it.
+5. Deploy.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Deployment status for this submission: see [`SUBMISSION.md`](SUBMISSION.md).
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Known limitations
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- No real-time multiplayer cursors or CRDT sync
+- No Trash / soft-delete
+- No DOCX import
+- Markdown import supports a useful subset (headings, lists, bold/italic, paragraphs), not full CommonMark
+- Live multi-user features require a configured Supabase project
