@@ -6,11 +6,12 @@
 
 ## Live URL
 
-Not deployed from this environment. Deployment is **incomplete** until you connect Vercel (or similar) and configure Supabase environment variables.
+https://ajaiotest-vglk.vercel.app/
 
 ## Source code location
 
-Local repository: `D:\testpracticeajaio` (this project root).
+- Local: `D:\testpracticeajaio`
+- GitHub: https://github.com/ibadakbar/ajaiotest
 
 ## Setup instructions
 
@@ -43,8 +44,7 @@ Suggested demo: sign in as Alice, create a document, share with Bob as editor an
 
 ## Incomplete features
 
-- Live deployment URL (not published from this session)
-- Walkthrough video URL (placeholder in `WALKTHROUGH_URL.txt`)
+- Walkthrough video URL (placeholder in `WALKTHROUGH_URL.txt` — add after recording)
 - Real-time collaboration, trash, DOCX import (intentionally out of scope)
 
 ## Automated tests and actual results
